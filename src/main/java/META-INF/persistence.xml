@@ -8,12 +8,17 @@
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/bd"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="thi"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-   
             
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <!-- Dialect do Hibernate -->
+            <property name="hibernate.dialect" value="config.dialect.mysql.CustomMySQLDialect"/>
+            
+            <!-- Configurações adicionais do Hibernate -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
+            
+            <!-- Configuração da engine do MySQL -->
+            <property name="hibernate.dialect.storage_engine" value="innodb"/>
         </properties>
     </persistence-unit>
 </persistence>
