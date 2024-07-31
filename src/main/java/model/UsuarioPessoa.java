@@ -58,6 +58,12 @@ public class UsuarioPessoa {
 	public void setIdade(int idade) {
 		this.idade = idade ;
 	}
+
+	@Override
+	public String toString() {
+		return "UsuarioPessoa [id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", idade="
+				+ idade + "]";
+	}
 	
 
 }

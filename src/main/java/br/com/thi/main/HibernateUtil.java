@@ -13,6 +13,7 @@ public class HibernateUtil {
 		init();
 	}
 	
+	
 	private static void init() {
 		try {
 			if(factory == null) {
@@ -23,8 +24,13 @@ public class HibernateUtil {
 		}
 	}
 	
+	
 	public static EntityManager getEntityManager(){
 		return factory.createEntityManager(); /*Prove a parte da persistencia */
+	}
+	
+	public static Object getPrimaryKey(Object entity) { /* Retorna a chave primaria */
+		return factory.getPersistenceUnitUtil().getIdentifier(entity);
 	}
 
 }
