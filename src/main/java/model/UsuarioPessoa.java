@@ -1,12 +1,24 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
 
 @Entity
+@NamedQueries({
+	
+	@NamedQuery(name = "listar.todos", query = "SELECT u FROM UsuarioPessoa u"),
+	@NamedQuery(name = "listarNome.todos", query = "SELECT u FROM UsuarioPessoa u WHERE u.nome = :nome")
+})
+
+
 public class UsuarioPessoa {
 	
 	@Id
@@ -18,6 +30,11 @@ public class UsuarioPessoa {
 	private String senha;
 	private int idade;
 	
+	//relacionamento de n telefones para 1 usuário
+	//pegando o atributo criado pro relacionameto com a entidade telefone
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<TelefoneUser> telefoneUser;
 
 	public Long getId() {
 		return id;

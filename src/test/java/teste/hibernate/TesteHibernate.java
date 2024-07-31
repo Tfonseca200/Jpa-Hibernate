@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import br.com.thi.main.HibernateUtil;
 import dao.DaoGeneric;
+import model.TelefoneUser;
 import model.UsuarioPessoa;
 
 public class TesteHibernate {
@@ -31,8 +32,8 @@ public class TesteHibernate {
 	
 	
 	
-	/*
-	@Test
+	
+	// @Test
 	public void testeBuscar () {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		
@@ -40,19 +41,19 @@ public class TesteHibernate {
 		UsuarioPessoa pessoa2 = new UsuarioPessoa();
 		
 		
-		pessoa = daoGeneric.pesquisar(1L, pessoa);
+		// pessoa = daoGeneric.pesquisar(1L, pessoa);
 		System.out.println(pessoa);
 		
-		pessoa2 = daoGeneric.pesquisar(2L,pessoa);
+		// pessoa2 = daoGeneric.pesquisar(2L,pessoa);
 		System.out.println(pessoa2);
 		
 		
 	}
 	
-	*/
 	
-	/*
-	@Test
+	
+	
+	// @Test
 	public void testeUpdate() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		
@@ -68,10 +69,10 @@ public class TesteHibernate {
 		
 		System.out.println(pessoa);
 	}
-	*/
 	
-	/*
-	@Test
+	
+	
+	// @Test
 	public void testeDeletar() {
 		
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
@@ -82,10 +83,10 @@ public class TesteHibernate {
 		
 		daoGeneric.deletarPorId(pessoa);
 	}
-	*/
 	
-	/*
-	@Test
+	
+	
+	// @Test
 	public void testeListarUsuario() {
 		
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
@@ -94,12 +95,12 @@ public class TesteHibernate {
 		
 	}
 	
-	*/
 	
 	
-	/*
 	
-	@Test
+	
+	
+	// @Test
 	public void testQueryList() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		
@@ -112,10 +113,10 @@ public class TesteHibernate {
 		}
 	}
 	
-	*/
 	
 	
-		@Test
+	
+	//	@Test
 		public void testeQueryListaMaxPessoas() {
 			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 			
@@ -126,6 +127,63 @@ public class TesteHibernate {
 			for (UsuarioPessoa listaPessoas : list) {
 				System.out.println (listaPessoas);
 				}
-			
 	}
+		
+	
+		//@Test
+		public void testeListaPorParametro() {
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			List<UsuarioPessoa> list = daoGeneric.getEntityManager().createQuery("FROM UsuarioPessoa WHERE nome = :nome and nome = :nome")
+					.setParameter("nome", "Thiago Fonseca Claudino")
+					.setParameter("nome", "buddy").getResultList();
+			
+			for (UsuarioPessoa listaPessoas : list) {
+				System.out.println (listaPessoas);
+				}
+			
+		}
+		
+		// @Test
+		public void testeQuerySomarTodasIdade() {
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			
+			long somaIdade =  (Long) daoGeneric.getEntityManager().createQuery(" SELECT SUM(u.idade) FROM UsuarioPessoa u ")
+					.getSingleResult();
+			
+			System.out.println("Soma de todas idades: " + somaIdade);
+			
+		}
+		
+		
+		// @Test
+		public void testeNameQuery() {
+		
+			DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+			
+			List<UsuarioPessoa> list = daoGeneric.getEntityManager().createNamedQuery("listarNome.todos")
+					.setParameter("nome", "buddy")
+					.getResultList();
+			
+			for (UsuarioPessoa usuarioPessoa : list) {
+				System.out.println(usuarioPessoa);
+			}
+		}
+		
+		
+		@Test
+		public void testeGravarTelefone() {
+			
+			DaoGeneric daoGeneric = new DaoGeneric();
+			
+			UsuarioPessoa pessoa = (UsuarioPessoa) daoGeneric.pesquisar(1L, UsuarioPessoa.class);
+			
+			TelefoneUser telefone = new TelefoneUser();
+			
+			telefone.setTipo("Celular");
+			telefone.setNumero("5002-8922");
+			telefone.setUsuario(pessoa);
+			
+			daoGeneric.save(telefone);
+			
+		}
 }
